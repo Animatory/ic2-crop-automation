@@ -16,7 +16,7 @@ local function updateLowest()
     lowestStatSlot = 0
 
     -- Find lowest stat slot
-    for slot=1, config.workingFarmArea, 2 do
+    for slot = 1, config.workingFarmArea, 2 do
         local crop = farm[slot]
         if crop.isCrop then
 
@@ -40,12 +40,11 @@ end
 
 local function isWeed(crop)
     return crop.name == 'weed' or
-        crop.name == 'Grass' or
-        crop.gr > config.workingMaxGrowth or
-        crop.re > config.workingMaxResistance or
-        (crop.name == 'venomilia' and crop.gr > 7)
+            crop.name == 'Grass' or
+            crop.gr > config.workingMaxGrowth or
+            crop.re > config.workingMaxResistance or
+            (crop.name == 'venomilia' and crop.gr > 7)
 end
-
 
 local function checkChild(slot, crop)
     if crop.isCrop and crop.name ~= 'emptyCrop' then
@@ -83,12 +82,11 @@ local function checkChild(slot, crop)
     end
 end
 
-
 local function checkParent(slot, crop)
     if crop.isCrop and crop.name ~= 'air' and crop.name ~= 'emptyCrop' then
         if isWeed(crop) then
             action.deweed()
-            database.updateFarm(slot, {isCrop=true, name='emptyCrop'})
+            database.updateFarm(slot, { isCrop = true, name = 'emptyCrop' })
             updateLowest()
         end
     end
@@ -97,7 +95,7 @@ end
 -- ====================== STATTING ======================
 
 local function statOnce()
-    for slot=1, config.workingFarmArea, 1 do
+    for slot = 1, config.workingFarmArea, 1 do
 
         -- Terminal Condition
         if lowestStat >= config.autoStatThreshold then
@@ -133,7 +131,6 @@ local function init()
     targetCrop = database.getFarm()[1].name
     print(string.format('autoStat: Target %s', targetCrop))
 end
-
 
 local function main()
     init()
