@@ -18,7 +18,7 @@ local scripts = {
 }
 
 -- BRANCH
-if #args == 1 then
+if #args >= 1 then
     branch = args[1]
 else
     branch = 'main'
