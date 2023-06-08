@@ -1,9 +1,9 @@
 local component = require('component')
 local sides = require('sides')
-local geolyzer = component.geolyzer
+local nbt = require('nbt')
 
 local function scan()
-    local rawResult = geolyzer.analyze(sides.down)
+    local rawResult = component.geolyzer.analyze(sides.down)
 
     -- AIR
     if rawResult.name == 'minecraft:air' or rawResult.name == 'GalacticraftCore:tile.brightAir' then
@@ -34,5 +34,5 @@ local function scan()
 end
 
 return {
-    scan = scan
+    scan = scn
 }
