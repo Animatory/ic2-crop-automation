@@ -1,26 +1,24 @@
 local component = require('component')
 local sides = require('sides')
-local config = require('config')
 local geolyzer = component.geolyzer
-
 
 local function scan()
     local rawResult = geolyzer.analyze(sides.down)
 
     -- AIR
     if rawResult.name == 'minecraft:air' or rawResult.name == 'GalacticraftCore:tile.brightAir' then
-        return {isCrop=true, name='air'}
+        return { isCrop = true, name = 'air' }
 
     elseif rawResult.name == 'IC2:blockCrop' then
 
         -- EMPTY CROP STICK
         if rawResult['crop:name'] == nil then
-            return {isCrop=true, name='emptyCrop'}
+            return { isCrop = true, name = 'emptyCrop' }
 
-        -- FILLED CROP STICK
+            -- FILLED CROP STICK
         else
             return {
-                isCrop=true,
+                isCrop = true,
                 name = rawResult['crop:name'],
                 gr = rawResult['crop:growth'],
                 ga = rawResult['crop:gain'],
@@ -29,9 +27,9 @@ local function scan()
             }
         end
 
-    -- RANDOM BLOCK
+        -- RANDOM BLOCK
     else
-        return {isCrop=false, name='block'}
+        return { isCrop = false, name = 'block' }
     end
 end
 

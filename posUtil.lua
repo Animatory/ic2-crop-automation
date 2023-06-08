@@ -21,7 +21,7 @@ local function workingSlotToPos(slot)
         y = -row + config.workingFarmSize
     end
 
-    return {-x, y}
+    return { -x, y }
 end
 
 -- ======================== STORAGE FARM ========================
@@ -48,9 +48,8 @@ local function storageSlotToPos(slot)
         y = -row + config.workingFarmSize
     end
 
-    return {x, y}
+    return { x, y }
 end
-
 
 return {
     workingSlotToPos = workingSlotToPos,

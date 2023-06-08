@@ -20,7 +20,7 @@ local function updateLowest()
     lowestStatSlot = 0
 
     -- Find lowest tier slot
-    for slot=1, config.workingFarmArea, 2 do
+    for slot = 1, config.workingFarmArea, 2 do
         local crop = farm[slot]
         if crop.isCrop then
 
@@ -38,7 +38,7 @@ local function updateLowest()
 
     -- Find lowest stat slot amongst the lowest tier
     if config.statWhileTiering then
-        for slot=1, config.workingFarmArea, 2 do
+        for slot = 1, config.workingFarmArea, 2 do
             local crop = farm[slot]
             if crop.isCrop then
 
@@ -63,12 +63,11 @@ end
 
 local function isWeed(crop)
     return crop.name == 'weed' or
-        crop.name == 'Grass' or
-        crop.gr > config.workingMaxGrowth or
-        crop.re > config.workingMaxResistance or
-        (crop.name == 'venomilia' and crop.gr > 7)
+            crop.name == 'Grass' or
+            crop.gr > config.workingMaxGrowth or
+            crop.re > config.workingMaxResistance or
+            (crop.name == 'venomilia' and crop.gr > 7)
 end
-
 
 local function checkChild(slot, crop)
     if crop.isCrop and crop.name ~= 'emptyCrop' then
@@ -80,7 +79,7 @@ local function checkChild(slot, crop)
             action.deweed()
             action.placeCropStick()
 
-        -- Seen before, tier up working farm
+            -- Seen before, tier up working farm
         elseif database.existInStorage(crop) then
             local stat = crop.gr + crop.ga - crop.re
 
@@ -90,7 +89,7 @@ local function checkChild(slot, crop)
                 database.updateFarm(lowestTierSlot, crop)
                 updateLowest()
 
-            -- Not higher tier, stat up working farm
+                -- Not higher tier, stat up working farm
             elseif (config.statWhileTiering and crop.tier == lowestTier and stat > lowestStat) then
                 action.transplant(posUtil.workingSlotToPos(slot), posUtil.workingSlotToPos(lowestStatSlot))
                 action.placeCropStick(2)
@@ -102,7 +101,7 @@ local function checkChild(slot, crop)
                 action.placeCropStick()
             end
 
-        -- Not seen before, move to storage
+            -- Not seen before, move to storage
         else
             action.transplant(posUtil.workingSlotToPos(slot), posUtil.storageSlotToPos(database.nextStorageSlot()))
             action.placeCropStick(2)
@@ -111,12 +110,11 @@ local function checkChild(slot, crop)
     end
 end
 
-
 local function checkParent(slot, crop)
     if crop.isCrop and crop.name ~= 'air' and crop.name ~= 'emptyCrop' then
         if isWeed(crop) then
             action.deweed()
-            database.updateFarm(slot, {isCrop=true, name='emptyCrop'})
+            database.updateFarm(slot, { isCrop = true, name = 'emptyCrop' })
             updateLowest()
         end
     end
@@ -125,7 +123,7 @@ end
 -- =================== TIERING ======================
 
 local function tierOnce()
-    for slot=1, config.workingFarmArea, 1 do
+    for slot = 1, config.workingFarmArea, 1 do
 
         -- Terminal Condition
         if breedRound > config.maxBreedRound then
@@ -172,7 +170,6 @@ local function init()
 
     print(string.format('autoTier: Target Tier %s', config.autoTierThreshold))
 end
-
 
 local function main()
     init()

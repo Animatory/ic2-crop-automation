@@ -12,7 +12,7 @@ local targetCrop
 local function findEmpty()
     local farm = database.getFarm()
 
-    for slot=1, config.workingFarmArea, 2 do
+    for slot = 1, config.workingFarmArea, 2 do
         local crop = farm[slot]
         if crop.name == 'air' or crop.name == 'emptyCrop' then
             emptySlot = slot
@@ -26,12 +26,11 @@ end
 
 local function isWeed(crop)
     return crop.name == 'weed' or
-        crop.name == 'Grass' or
-        crop.gr > config.storageMaxGrowth or
-        crop.re > config.storageMaxResistance or
-        (crop.name == 'venomilia' and crop.gr > 7)
+            crop.name == 'Grass' or
+            crop.gr > config.storageMaxGrowth or
+            crop.re > config.storageMaxResistance or
+            (crop.name == 'venomilia' and crop.gr > 7)
 end
-
 
 local function checkChild(slot, crop)
     if crop.isCrop and crop.name ~= 'emptyCrop' then
@@ -53,14 +52,14 @@ local function checkChild(slot, crop)
                     action.placeCropStick(2)
                     database.updateFarm(emptySlot, crop)
 
-                -- No parent is empty, put in storage
+                    -- No parent is empty, put in storage
                 else
                     action.transplant(posUtil.workingSlotToPos(slot), posUtil.storageSlotToPos(database.nextStorageSlot()))
                     database.addToStorage(crop)
                     action.placeCropStick(2)
                 end
 
-            -- Stats are not high enough
+                -- Stats are not high enough
             else
                 action.deweed()
                 action.placeCropStick()
@@ -78,12 +77,11 @@ local function checkChild(slot, crop)
     end
 end
 
-
 local function checkParent(slot, crop)
     if crop.isCrop and crop.name ~= 'air' and crop.name ~= 'emptyCrop' then
         if isWeed(crop) then
             action.deweed()
-            database.updateFarm(slot, {isCrop=true, name='emptyCrop'})
+            database.updateFarm(slot, { isCrop = true, name = 'emptyCrop' })
         end
     end
 end
@@ -91,7 +89,7 @@ end
 -- ====================== SPREADING ======================
 
 local function spreadOnce()
-    for slot=1, config.workingFarmArea, 1 do
+    for slot = 1, config.workingFarmArea, 1 do
 
         -- Terminal Condition
         if #database.getStorage() >= config.storageFarmArea then
@@ -126,7 +124,6 @@ local function init()
     targetCrop = database.getFarm()[1].name
     print(string.format('autoSpread: Target %s', targetCrop))
 end
-
 
 local function main()
     init()

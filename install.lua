@@ -18,7 +18,7 @@ local scripts = {
 }
 
 -- BRANCH
-if #args == 1 then
+if #args >= 1 then
     branch = args[1]
 else
     branch = 'main'
@@ -28,7 +28,7 @@ end
 if #args == 2 then
     repo = args[2]
 else
-    repo = 'https://raw.githubusercontent.com/DylanTaylor1/ic2-crop-automation/'
+    repo = 'https://raw.githubusercontent.com/Animatory/ic2-crop-automation/'
 end
 
 -- INSTALL
